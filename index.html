@@ -15,7 +15,7 @@
         .bg-unimap-blue { background-color: #003366; }
         .border-unimap-yellow { border-color: #FFCC00; }
         
-        /* Animasi simple */
+        /* Animasi */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -54,7 +54,7 @@
         <!-- Bekas Logo Petak & Besar -->
         <div class="w-48 md:w-56 bg-white rounded-2xl flex items-center justify-center overflow-hidden border-2 border-unimap-yellow shadow-lg p-2">
             <!-- Logo Imej -->
-            <img src="https://drive.google.com/thumbnail?id=1uEb-bSya-BQWQuTYGMNwMYNQL9gEq8Vg&sz=w500" alt="Logo Dapur Siswa UniMAP" class="w-full h-auto object-contain">
+            <img src="https://drive.google.com/thumbnail?id=1uEb-bSya-BQWQuTYGMNwMYNQL9gEq8Vg&sz=w500" alt="Logo Dapur Siswa UniMAP" class="w-full h-auto object-contain" onerror="this.src='https://placehold.co/300x120/003366/FFCC00?text=UniMAP+Dapur+Siswa'">
         </div>
         <div class="text-center">
             <h1 class="text-2xl font-extrabold text-[#003366] tracking-tight uppercase">DAPUR SISWA @ UniMAP</h1>
@@ -81,7 +81,7 @@
             <div class="bg-white p-8 rounded-3xl shadow-xl shadow-slate-200 border border-slate-100">
                 <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-slate-800">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    Masukkan No Matrik
+                    Masukkan Maklumat
                 </h2>
                 
                 <form id="matrixForm" class="space-y-4">
@@ -96,6 +96,25 @@
                             class="w-full px-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all text-lg font-bold placeholder:text-slate-300"
                             required
                         >
+                    </div>
+
+                    <!-- Pilihan Dapur Siswa -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                            Pilihan Dapur Siswa
+                        </label>
+                        <div class="relative">
+                            <select
+                                id="dapurSelect"
+                                class="w-full px-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-blue-500 focus:bg-white outline-none transition-all text-base font-bold text-slate-700 appearance-none cursor-pointer"
+                                required
+                            >
+                                <option value="" disabled selected>Pilih Lokasi Dapur Siswa</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
                     </div>
 
                     <button
@@ -165,11 +184,22 @@
                             <p id="res-fakulti" class="font-bold text-slate-800 uppercase">-</p>
                         </div>
                     </div>
+
+                    <!-- Dapur Siswa -->
+                    <div class="flex items-center gap-3">
+                        <div class="bg-white p-2 rounded-lg shadow-sm border border-slate-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lokasi Dapur Siswa</p>
+                            <p id="res-dapur" class="font-bold text-slate-800 uppercase">-</p>
+                        </div>
+                    </div>
                 </div>
 
                 <button
                     onclick="switchView('home')"
-                    class="mt-8 w-full bg-slate-800 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform"
+                    class="mt-8 w-full bg-slate-800 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform cursor-pointer"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                     KEMBALI KE UTAMA
@@ -188,7 +218,7 @@
                 
                 <button
                     onclick="switchView('home')"
-                    class="w-full bg-slate-100 text-slate-600 font-bold py-4 rounded-2xl border border-slate-200 active:bg-slate-200 transition-colors"
+                    class="w-full bg-slate-100 text-slate-600 font-bold py-4 rounded-2xl border border-slate-200 active:bg-slate-200 transition-colors cursor-pointer"
                 >
                     CUBA LAGI
                 </button>
@@ -215,11 +245,50 @@
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw3IjQFc_1diyT0_3ngx25gbWJf42cwyiG1teXpLsREhLKBeza5PaYW2NZuotZP6lZq/exec';
         
+        // ==========================================
+        // KONFIGURASI PILIHAN DAPUR SISWA (ON / OFF)
+        // Tukar isActive kepada true / false sahaja
+        // ==========================================
+        const DAPUR_LIST = [
+            { id: 'KKTAR', name: 'KKTAR', isActive: true },
+            { id: 'KPPP', name: 'KPPP', isActive: false },
+            { id: 'UNICITI', name: 'UNICITI', isActive: true },
+            { id: 'KPTAG', name: 'KPTAG', isActive: false },
+            { id: 'IRC', name: 'IRC', isActive: false },
+            { id: 'KPTAAB', name: 'KPTAAB', isActive: false }
+        ];
+
         const form = document.getElementById('matrixForm');
         const matrixInput = document.getElementById('matrixInput');
+        const dapurSelect = document.getElementById('dapurSelect');
         const btnSubmit = document.getElementById('btnSubmit');
         const btnLabel = document.getElementById('btnLabel');
         const loadingState = document.getElementById('loadingState');
+
+        // Fungsi bina senarai dropdown dapur siswa secara dinamik
+        function populateDapurOptions() {
+            // Kosongkan dan set pilihan default
+            dapurSelect.innerHTML = '<option value="" disabled selected>Pilih Lokasi Dapur Siswa</option>';
+
+            DAPUR_LIST.forEach((item) => {
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                
+                if (item.isActive) {
+                    opt.textContent = item.name;
+                    opt.className = 'text-slate-800 font-semibold';
+                } else {
+                    opt.textContent = `${item.name} (Akan Datang)`;
+                    opt.disabled = true;
+                    opt.className = 'text-slate-400 bg-slate-100 italic font-normal';
+                }
+                
+                dapurSelect.appendChild(opt);
+            });
+        }
+
+        // Jalankan penjanaan pilihan dropdown
+        populateDapurOptions();
 
         // Fungsi tukar paparan
         function switchView(viewName) {
@@ -231,11 +300,12 @@
             
             if(viewName === 'home') {
                 matrixInput.value = '';
+                dapurSelect.selectedIndex = 0;
                 setLoading(false);
             }
         }
 
-        // Fungsi kawal loading
+        // Fungsi kawal status butang dan spinner
         function setLoading(isLoading) {
             if (isLoading) {
                 btnSubmit.disabled = true;
@@ -250,11 +320,12 @@
             }
         }
 
-        // Fungsi hantar data
+        // Fungsi penghantaran data borang
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const val = matrixInput.value.trim().toUpperCase();
-            if (!val) return;
+            const dapur = dapurSelect.value;
+            if (!val || !dapur) return;
 
             setLoading(true);
 
@@ -268,7 +339,7 @@
                 const resData = await response.json();
 
                 if (resData.status === 'success') {
-                    // Langkah 2: Rekod pengambilan (POST)
+                    // Langkah 2: Rekod pengambilan termasuk dapur_siswa ke Column E (POST)
                     await fetch(SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
@@ -278,7 +349,8 @@
                             data: {
                                 nama: resData.nama,
                                 no_matrik: resData.no_matrik,
-                                fakulti: resData.fakulti
+                                fakulti: resData.fakulti,
+                                dapur_siswa: dapur
                             }
                         })
                     });
@@ -287,6 +359,7 @@
                     document.getElementById('res-nama').textContent = resData.nama;
                     document.getElementById('res-matrik').textContent = resData.no_matrik;
                     document.getElementById('res-fakulti').textContent = resData.fakulti;
+                    document.getElementById('res-dapur').textContent = dapur;
                     
                     switchView('success');
                 } else {
@@ -297,13 +370,10 @@
                 console.error("Kesalahan sistem:", error);
                 document.getElementById('error-message').textContent = 'Terjadi ralat sambungan. Sila pastikan Web App anda aktif.';
                 switchView('error');
-            } finally {
-                // Jangan setLoading(false) di sini jika view bertukar, 
-                // setLoading(false) dipanggil dalam switchView('home')
             }
         });
 
-        // Pastikan input sentiasa huruf besar
+        // Pastikan input sentiasa huruf besar secara automatik
         matrixInput.addEventListener('input', (e) => {
             e.target.value = e.target.value.toUpperCase();
         });
